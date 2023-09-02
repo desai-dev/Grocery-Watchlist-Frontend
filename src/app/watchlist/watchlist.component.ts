@@ -7,15 +7,18 @@ import { WatchlistService } from './watchlist.service';
   styleUrls: ['./watchlist.component.css']
 })
 export class WatchlistComponent {
-  watchlist: string[] = [];
+  watchlist: any[] = [];
 
   constructor(private watchlistService: WatchlistService) {}
 
   ngOnInit(): void {
-    this.watchlist = this.watchlistService.getWatchlist();
+    this.watchlistService.watchlistChanged.subscribe((data) => {
+      this.watchlist = data;
+      console.log("RECIEVED", this.watchlist);
+    });
   }
 
-  onRemoveButtonClick(productName: string): void {
-    this.watchlistService.removeFromWatchlist(productName);
+  onRemoveButtonClick(id: string): void {
+    this.watchlistService.removeFromWatchlist(id);
   }
 }

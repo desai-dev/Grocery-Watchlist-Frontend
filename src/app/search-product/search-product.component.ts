@@ -18,9 +18,9 @@ export class SearchProductComponent {
     this.fetchProducts();
   }
 
-  onAddButtonClick(productName: any): void {
-    console.log(productName);
-    this.watchlistService.addToWatchlist(productName);
+  onAddButtonClick(productName: any, price: any): void {
+    console.log(productName, price);
+    this.watchlistService.addToWatchlist(productName, price);
     console.log(this.watchlistService.getWatchlist());
     console.log("hi");
   }
