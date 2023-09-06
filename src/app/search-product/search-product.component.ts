@@ -10,6 +10,7 @@ import { WatchlistService } from '../watchlist/watchlist.service';
 export class SearchProductComponent {
   searchQuery: string = '';
   searchResults: any = null;
+  textInput: string[] = [];
 
   constructor(private http: HttpClient, private watchlistService: WatchlistService) {}
 
@@ -18,10 +19,11 @@ export class SearchProductComponent {
     this.fetchProducts();
   }
 
-  onAddButtonClick(productName: any, price: any): void {
-    console.log(productName, price);
-    this.watchlistService.addToWatchlist(productName, price);
+  onAddButtonClick(productName: any, price: any, textInputValue: string): void {
+    console.log("poop", productName, price, textInputValue);
+    this.watchlistService.addToWatchlist(productName, price, textInputValue);
     console.log(this.watchlistService.getWatchlist());
+    this.scrapeWatchlist();
     console.log("hi");
   }
 
@@ -30,6 +32,21 @@ export class SearchProductComponent {
     .subscribe((res) => {
       console.log(res);
       this.searchResults = res;
+    });
+  }
+
+  private scrapeWatchlist() {
+    const watchlist = this.watchlistService.watchlistData;
+    for (const product of watchlist) {
+      this.scrapeProduct(product);
+    }
+  }
+
+  private scrapeProduct(data : any) {
+    console.log("SEND TO BACKEND", data);
+    this.http.post(`http://127.0.0.1:8000/scrapewatchlist`, data)
+    .subscribe((res) => {
+      console.log(res);
     });
   }
 }

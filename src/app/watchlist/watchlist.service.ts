@@ -39,17 +39,17 @@ export class WatchlistService {
   }
 
   updatePrices(): void {
-    this.http.get(`http://127.0.0.1:8000/updatePrices/${this.watchlistData}`)
+    this.http.get<any[]>(`http://127.0.0.1:8000/updatePrices/${this.watchlistData}`)
     .subscribe((res) => {
       console.log(res);
       this.watchlistData = res;
     });
   }
 
-  addToWatchlist(productName: string, price: number): void {
+  addToWatchlist(productName: string, price: number, watchPrice: string): void {
     const doesProductExist = this.watchlistData.some((product) => product.name === productName);
     if (!doesProductExist) {
-      const requestData = {name: productName, price: price, watchPrice: "$10.00"};
+      const requestData = {name: productName, price: price, watchPrice: watchPrice};
       console.log(requestData);
       this.http.post('https://grocery-watchlist-default-rtdb.firebaseio.com/watchlist.json', requestData)
       .subscribe((res) => {

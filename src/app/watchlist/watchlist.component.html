@@ -3,7 +3,8 @@
     <ul>
       <li *ngFor="let product of watchlist">
         {{ product.name }}
+        <strong>Watch Price:</strong> {{ product.watchPrice }}
         <button class="remove-button" (click)="onRemoveButtonClick(product.id)">-</button>
-    </li>
+      </li>
     </ul>
   </div>

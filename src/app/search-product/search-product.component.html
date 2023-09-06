@@ -6,9 +6,10 @@
 <div class="results-container" *ngIf="searchResults">
     <h2>Search Results:</h2>
     <ul>
-      <li *ngFor="let result of searchResults | keyvalue">
+      <li *ngFor="let result of searchResults | keyvalue; let i = index">
         <strong>{{ result.key }}</strong>: {{ result.value }}
-        <button class="add-button" (click)="onAddButtonClick(result.key, result.value)">+</button>
+        <input type="text" class="add-input" [(ngModel)]="textInput[i]">
+        <button class="add-button" (click)="onAddButtonClick(result.key, result.value, textInput[i])">+</button>
       </li>
     </ul>
   </div>
