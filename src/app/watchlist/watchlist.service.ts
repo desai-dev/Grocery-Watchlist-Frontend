@@ -38,14 +38,6 @@ export class WatchlistService {
     }); 
   }
 
-  updatePrices(): void {
-    this.http.get<any[]>(`http://127.0.0.1:8000/updatePrices/${this.watchlistData}`)
-    .subscribe((res) => {
-      console.log(res);
-      this.watchlistData = res;
-    });
-  }
-
   addToWatchlist(productName: string, price: number, watchPrice: string): void {
     const doesProductExist = this.watchlistData.some((product) => product.name === productName);
     if (!doesProductExist) {

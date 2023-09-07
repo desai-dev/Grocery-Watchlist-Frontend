@@ -46,7 +46,11 @@ export class SearchProductComponent {
     console.log("SEND TO BACKEND", data);
     this.http.post(`http://127.0.0.1:8000/scrapewatchlist`, data)
     .subscribe((res) => {
-      console.log(res);
+      this.updatePrice(res[0], res[1])
     });
+  }
+
+  private updatePrice(productName : string, price : string) {
+    // UPDATE PRICE HERE
   }
 }
