@@ -51,6 +51,14 @@ export class SearchProductComponent {
   }
 
   private updatePrice(productName : string, price : string) {
-    // UPDATE PRICE HERE
+    try {
+      const productRef = db.collection('your-collection-name').doc(productName);
+  
+      await productRef.update({
+        watchPrice: price
+      });
+    } catch (error) {
+      console.error('Error updating price:', error);
+    }
   }
 }
